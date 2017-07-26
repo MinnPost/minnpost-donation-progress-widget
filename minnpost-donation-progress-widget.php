@@ -2,7 +2,7 @@
 /*
 Plugin Name: MinnPost Donation Progress Widget
 Plugin URI: #
-Description: Create a sidebar widget that displays donation progress, based on a Salesforce Report and a Salesforce Campaign. Requires the Salesforce REST API plugin.
+Description: Create a sidebar widget that displays donation progress, based on a Salesforce Report and a Salesforce Campaign. Requires the Object Sync for Salesforce plugin.
 Version: 0.0.1
 Author: Jonathan Stegall
 Author URI: https://code.minnpost.com
@@ -173,9 +173,9 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 		if ( ! function_exists( 'is_plugin_active' ) ) {
      		require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
      	}
-		if ( is_plugin_active('salesforce-rest-api/salesforce-rest-api.php') ) {
-			require_once plugin_dir_path( __FILE__ ) . '../salesforce-rest-api/salesforce-rest-api.php';
-			$salesforce = Salesforce_Rest_API::get_instance();
+		if ( is_plugin_active('object-sync-for-salesforce/object-sync-for-salesforce.php') ) {
+			require_once plugin_dir_path( __FILE__ ) . '../object-sync-for-salesforce/object-sync-for-salesforce.php';
+			$salesforce = Object_Sync_Salesforce::get_instance();
 			$this->salesforce = $salesforce;
 			return $this->salesforce;
 		}
