@@ -51,49 +51,49 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 
 		$data = $this->donation_progress_data( $instance['report_id'], $instance['campaign_id'] );
 
-		if ( $data['success'] === TRUE ) {
-            $percent = $data['percent_complete'];
-            $value = '$' . number_format( $data['value_opportunities'] );
-            $goal_int = $data['goal'];
-            $goal = '$' . number_format( $goal_int );
-            $one_third_int = $goal_int / 3;
-            $one_third = '$' . number_format( round( $one_third_int ) );
-            $two_thirds = '$' . number_format( round( $one_third_int * 2 ) );
-        } else {
-            $percent = '';
-            $value = '';
-            $goal = '';
-            $one_third = '';
-            $two_thirds = '';
-        }
+		if ( true === $data['success'] ) {
+			$percent = $data['percent_complete'];
+			$value = '$' . number_format( $data['value_opportunities'] );
+			$goal_int = $data['goal'];
+			$goal = '$' . number_format( $goal_int );
+			$one_third_int = $goal_int / 3;
+			$one_third = '$' . number_format( round( $one_third_int ) );
+			$two_thirds = '$' . number_format( round( $one_third_int * 2 ) );
+		} else {
+			$percent = '';
+			$value = '';
+			$goal = '';
+			$one_third = '';
+			$two_thirds = '';
+		}
 
-        $html = '';
-        $html .= '
+		$html = '';
+		$html .= '
         <div class="donation-widget">
             <div class="donation-meter" data-report="00OF0000006ZU9e" data-campaign="701560000001aYpAAI">
               <h2 class="pane-title"><span class="logo">MinnPost</span> <span class="year">2016</span> <span class="drive-name">Year-End Member Drive</span></h2>
               <div class="meter-status">
                 <div class="thermometer">';
-                if ( $goal !== '' ) {
-                  $html .= '<span class="point goal">' . $goal . '</span>';
-                }
-                  $html .= '<span class="point two-thirds">' . $two_thirds . '</span>
-                  <span class="point one-third">' . $one_third . '</span>
-                  <span class="glass">
-                    <span class="amount"></span>
-                  </span>
-                  <div class="bulb">
-                    <span class="red-circle"></span>
-                    <span class="filler">
-                      <span></span>
-                    </span>
-                  </div>
-                </div>
-                <strong class="total" data-percent="' . $percent . '">' . $value . '</strong>';
-                if ( $goal !== '' ) {
-                    $html .= '<strong class="drive-goal">Drive goal: <span class="goal">' . $goal . '</span></strong>';
-                }
-              $html .=' </div>
+		if ( '' !== $goal ) {
+			$html .= '<span class="point goal">' . $goal . '</span>';
+		}
+			$html .= '<span class="point two-thirds">' . $two_thirds . '</span>
+              <span class="point one-third">' . $one_third . '</span>
+              <span class="glass">
+                <span class="amount"></span>
+              </span>
+              <div class="bulb">
+                <span class="red-circle"></span>
+                <span class="filler">
+                  <span></span>
+                </span>
+              </div>
+            </div>
+            <strong class="total" data-percent="' . $percent . '">' . $value . '</strong>';
+		if ( '' !== $goal ) {
+			$html .= '<strong class="drive-goal">Drive goal: <span class="goal">' . $goal . '</span></strong>';
+		}
+			$html .= ' </div>
             </div>
         </div>
         ';
