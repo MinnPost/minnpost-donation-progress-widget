@@ -146,12 +146,12 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id('report_id'); ?>"><?php _e('Salesforce Report ID:'); ?></label> 
-			<input class="widefat" id="<?php echo $this->get_field_id('report_id'); ?>" name="<?php echo $this->get_field_name('report_id'); ?>" type="text" value="<?php echo $report_id; ?>" />
+			<label for="<?php echo $this->get_field_id( 'report_id' ); ?>"><?php _e( 'Salesforce Report ID:' ); ?></label> 
+			<input class="widefat" id="<?php echo $this->get_field_id( 'report_id' ); ?>" name="<?php echo $this->get_field_name( 'report_id' ); ?>" type="text" value="<?php echo $report_id; ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id('campaign_id'); ?>"><?php _e('Salesforce Campaign ID:'); ?></label> 
-			<input class="widefat" id="<?php echo $this->get_field_id('campaign_id'); ?>" name="<?php echo $this->get_field_name('campaign_id'); ?>" type="text" value="<?php echo $campaign_id; ?>" />
+			<label for="<?php echo $this->get_field_id( 'campaign_id' ); ?>"><?php _e( 'Salesforce Campaign ID:' ); ?></label> 
+			<input class="widefat" id="<?php echo $this->get_field_id( 'campaign_id' ); ?>" name="<?php echo $this->get_field_name( 'campaign_id' ); ?>" type="text" value="<?php echo $campaign_id; ?>" />
 		</p>
 
 		<?php
