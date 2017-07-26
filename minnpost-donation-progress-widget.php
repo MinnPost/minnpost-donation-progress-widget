@@ -167,9 +167,9 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 	private function salesforce() {
 		// get the base class
 		if ( ! function_exists( 'is_plugin_active' ) ) {
-     		require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
-     	}
-		if ( is_plugin_active('object-sync-for-salesforce/object-sync-for-salesforce.php') ) {
+			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+		}
+		if ( is_plugin_active( 'object-sync-for-salesforce/object-sync-for-salesforce.php' ) ) {
 			require_once plugin_dir_path( __FILE__ ) . '../object-sync-for-salesforce/object-sync-for-salesforce.php';
 			$salesforce = Object_Sync_Salesforce::get_instance();
 			$this->salesforce = $salesforce;
@@ -185,53 +185,53 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 	* @param array $instance Previously saved values from database.
 	*/
 	private function donation_progress_data( $report_id, $campaign_id ) {
-        if ( is_object( $this->salesforce ) ) {
-            $salesforce_api = $this->salesforce->salesforce['sfapi'];
-        } else {
-            $salesforce = $this->salesforce();
-            $salesforce_api = $salesforce->salesforce['sfapi'];
-        }
+		if ( is_object( $this->salesforce ) ) {
+			$salesforce_api = $this->salesforce->salesforce['sfapi'];
+		} else {
+			$salesforce = $this->salesforce();
+			$salesforce_api = $salesforce->salesforce['sfapi'];
+		}
 
-        if ( is_object( $salesforce_api ) ) {
-            // this is a report id
-            $report_result = $salesforce_api->run_analytics_report( $report_id, TRUE );
-            $campaign_result = $salesforce_api->object_read( 'Campaign', $campaign_id );
+		if ( is_object( $salesforce_api ) ) {
+			// this is a report id
+			$report_result = $salesforce_api->run_analytics_report( $report_id, true );
+			$campaign_result = $salesforce_api->object_read( 'Campaign', $campaign_id );
 
-            if ( isset( $campaign_result['data']['ExpectedRevenue'] ) ) {
-                $goal = $campaign_result['data']['ExpectedRevenue'];
-            } else {
-                $goal = '';
-            }
+			if ( isset( $campaign_result['data']['ExpectedRevenue'] ) ) {
+				$goal = $campaign_result['data']['ExpectedRevenue'];
+			} else {
+				$goal = '';
+			}
 
-            if ( $report_result['data']['attributes']['status'] === 'Success' ) {
-                $factmap = $report_result['data']['factMap'];
-                foreach ( $factmap as $array ) {
-                    if ( isset( $array['aggregates'] ) ) {
-                        $success = TRUE;
-                        $value = $array['aggregates'][1]['value'];
-                        break;
-                    }
-                }
-            } elseif ( $report_result['data']['attributes']['status'] === 'Running' || $report_result['data']['attributes']['status'] === 'New' ) {
-                $success = 'running';
-                $value = 0;
-            }
-        } else {
-            $success = FALSE;
-            $value = 0;
-        }
+			if ( 'success' === $report_result['data']['attributes']['status'] ) {
+				$factmap = $report_result['data']['factMap'];
+				foreach ( $factmap as $array ) {
+					if ( isset( $array['aggregates'] ) ) {
+						$success = true;
+						$value = $array['aggregates'][1]['value'];
+						break;
+					}
+				}
+			} elseif ( 'Running' === $report_result['data']['attributes']['status'] || 'New' === $report_result['data']['attributes']['status'] ) {
+				$success = 'running';
+				$value = 0;
+			}
+		} else {
+			$success = false;
+			$value = 0;
+		}
 
-        $data = array(
-            'success' => $success,
-            'value_opportunities' => $value,
-            'goal' => $goal,
-            'percent_complete' => ( $value / 10000 ) * 100
-        );
+		$data = array(
+			'success' => $success,
+			'value_opportunities' => $value,
+			'goal' => $goal,
+			'percent_complete' => ( $value / 10000 ) * 100,
+		);
 
-        return $data;
+		return $data;
 
-    }
-     
+	}
+
 }
 
 /* Register the widget */
