@@ -10,23 +10,20 @@ Text Domain: minnpost-donation-progress-widget
 License: GPL2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
- 
- 
+
 class MinnpostDonationProgress_Widget extends WP_Widget {
 
 	/**
 	* @var object
 	*/
 	private $salesforce;
-
- 
 	public function __construct() {
 		parent::__construct(
 			'MinnpostDonationProgress_Widget',
 			__( 'MinnPost Donation Progress Widget', 'minnpost-donation-progress-widget' ),
 			array(
 				'classname'   => 'MinnpostDonationProgress_Widget',
-				'description' => __( 'Track donation progress based on a Salesforce campaign report.', 'minnpost-donation-progress-widget' )
+				'description' => __( 'Track donation progress based on a Salesforce campaign report.', 'minnpost-donation-progress-widget' ),
 			)
 		);
 
@@ -36,11 +33,11 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 
 	public function css_and_js() {
 		wp_enqueue_style( 'minnpost-nimbus', plugins_url( 'fonts/nimbus.css', __FILE__ ), array(), '0.1' );
-        wp_enqueue_style( 'minnpost-donation-progress-widget', plugins_url( 'minnpost-donation-progress-widget.css', __FILE__ ), array( 'minnpost-nimbus' ), '0.1' );
-        wp_enqueue_script( 'minnpost-donation-progress-widget-js', plugins_url( 'minnpost-donation-progress-widget.js', __FILE__ ), array( 'jquery-core' ), '0.1' );
+		wp_enqueue_style( 'minnpost-donation-progress-widget', plugins_url( 'minnpost-donation-progress-widget.css', __FILE__ ), array( 'minnpost-nimbus' ), '0.1' );
+		wp_enqueue_script( 'minnpost-donation-progress-widget-js', plugins_url( 'minnpost-donation-progress-widget.js', __FILE__ ), array( 'jquery-core' ), '0.1' );
 	}
- 
-	/**  
+
+	/**
 	* Front-end display of widget.
 	*
 	* @see WP_Widget::widget()
@@ -101,11 +98,10 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
         </div>
         ';
 
-        echo $html;
+		echo $html;
 
 	}
- 
-  
+
 	/**
 	* Sanitize widget form values as they are saved.
 	*
@@ -116,7 +112,7 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 	*
 	* @return array Updated safe values to be saved.
 	*/
-	public function update( $new_instance, $old_instance ) {        
+	public function update( $new_instance, $old_instance ) {
 
 		$instance = $old_instance;
 
@@ -126,7 +122,7 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 		return $instance;
 
 	}
-  
+
 	/**
 	* Back-end widget form.
 	*
@@ -134,7 +130,7 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 	*
 	* @param array $instance Previously saved values from database.
 	*/
-	public function form( $instance ) {    
+	public function form( $instance ) {
 
 		if ( isset( $instance['report_id'] ) ) {
 			$report_id = esc_attr( $instance['report_id'] );
@@ -158,7 +154,7 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id('campaign_id'); ?>" name="<?php echo $this->get_field_name('campaign_id'); ?>" type="text" value="<?php echo $campaign_id; ?>" />
 		</p>
 
-		<?php 
+		<?php
 	}
 
 	/**
@@ -168,7 +164,7 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
 	* @return $this->salesforce
 	*
 	*/
-    private function salesforce() {
+	private function salesforce() {
 		// get the base class
 		if ( ! function_exists( 'is_plugin_active' ) ) {
      		require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
@@ -237,7 +233,7 @@ class MinnpostDonationProgress_Widget extends WP_Widget {
     }
      
 }
- 
+
 /* Register the widget */
 add_action( 'widgets_init', function() {
 	register_widget( 'MinnpostDonationProgress_Widget' );
